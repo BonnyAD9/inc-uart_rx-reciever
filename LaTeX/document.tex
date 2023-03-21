@@ -1,0 +1,83 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[czech]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[
+    a4paper,top=2cm,bottom=2cm,left=2cm,right=2cm,marginparwidth=1.75cm
+]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Návrh INC projektu UART}
+\author{Jakub Antonín Štigler (xstigl00)}
+
+\begin{document}
+\maketitle
+
+%\begin{abstract}
+%Your abstract.
+%\end{abstract}
+
+\section{Architektura obvodu (RTL)}
+
+\subsection{Schéma}
+\includegraphics*[scale=0.4]{assets/RTL.png}
+
+\subsection{Popis funkce}
+
+Signál ze vstupu DIN je synchronizován pomocí tří D-KO v transparentním režimu.
+
+Data jsou dále zavedena do demultiplexeru (DMX) který je rozvádí do
+jednotlivých T-KO které tvoří výstup DOUT.
+
+Obvod využívá 2 počítadla (CTR3 a CTR4) která praují na 3 a 4 bitech.
+Když FSM výstup READ je 1 tak se počítadla zapojí za sebe a vytvoří jedno
+sedmibitové počítadlo. Výstup z CTR3 určuje který bit ve výstupu se má
+nastavovat. Přetečení z CTR4 do CTR3 je pomocí D-KO v transparentním režimu
+zpožděno aby se bity zapisovaly na ještě starou pozici určenou CTR3.
+
+Výstupní D-KO můžou být resetovány pomocí signálu (CLR) z FSM. Tento sygnál ale
+musí být synchronizovaný z hodinami protože reset na D-KO je asynchronní.
+
+\newpage
+
+\section{Návrh automatu}
+
+\subsection{Schéma automatu}
+
+\subsubsection{Legenda}
+
+\begin{itemize}
+    \item Stavy: IDLE, OFFSET, READ, WAIT1, WAIT2, VALID
+    \item Vstupní signály: DAT, CNT3, CNT4, CLK, RST
+    \item Moorovy výstupy (a jejich implicitní hodnoty): READ=0, CC3=0, CC4=0,
+          VLD=0, CLR=1
+    \item Mealyho výstupy: žádné
+\end{itemize}
+
+\subsubsection{Schéma}
+
+\includegraphics*[scale=0.9]{assets/FSM.pdf}
+
+\subsection{Funkce}
+Automat začíná ve stavu IDLE a čeká dokud se na vstupu DIN neoběví 0. Poté se
+přesune do stavu OFFSET kde počká 8 cyklů hodin (přesun do prostřed bitu). Dále
+se automat dostane do stavu READ kde vždy počká 16 cyklů hodin a přečte jeden
+bit. Když takto přečte 8 bitů přesune se do stavu WAIT1 kde čeká dalších 16
+cyklů hodin aby se dostal doprostřed ukončovacího bitu. Pak se přesune do stavu
+WAIT2 a počká 8 cyklů hodin aby se dostal na konec ukončovacího bitu. Nakonec
+se na jeden hodinový cyklus přesune do stavu VALID při kterém vyšle sygnál
+DOUT\_VLD který říká že na DOUT je validní výstup.
+
+
+%\bibliographystyle{alpha}
+%\bibliography{sample}
+
+\end{document}
