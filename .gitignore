@@ -10,3 +10,5 @@ document.pdf
 *.o
 *.cf
 synth.vhd
+vhdl/testbench
+*.ghw

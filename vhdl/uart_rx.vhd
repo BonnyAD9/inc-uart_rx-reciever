@@ -24,8 +24,8 @@ end entity;
 -- Architecture implementation (INSERT YOUR IMPLEMENTATION HERE)
 architecture behavioral of UART_RX is
     -- counters
-    signal CTR4 : unsigned(4 downto 0);
-    signal CTR3 : unsigned(3 downto 0);
+    signal CTR4 : unsigned(3 downto 0);
+    signal CTR3 : unsigned(2 downto 0);
     -- delay when chaining CTR3 to CTR4
     signal DELAY : std_logic;
     -- outputs from fsm
@@ -68,6 +68,11 @@ begin
         variable ctr4_end : boolean;
         -- when CTR3 is at its last number
         variable ctr3_end : boolean;
+        -- the ctr_end variables must be set when the next iteration is
+        -- at the end so that the CNT3 and CNT4 are set at the same time
+        -- as CTR4 and CTR3 goes to the last number
+        variable next_ctr3 : unsigned(2 downto 0);
+        variable next_ctr4 : unsigned(3 downto 0);
     begin
         -- set the variables
         ctr4_end := CTR4 = "1111";
@@ -90,20 +95,29 @@ begin
 
             -- increment CTR4
             if CC4 = '1' then
-                CTR4 <= CTR4 + 1;
+                next_ctr4 := CTR4 + 1;
+            else
+                next_ctr4 := (others => '0');
             end if;
 
             -- increment CTR3
             if CC3 = '1' then
                 -- chain CTR3 after CTR4 when RD = '1'
                 if RD = '1' then
-                    if ctr4_end then
-                        CTR3 <= CTR3 + 1;
+                    if DELAY = '1' then
+                        next_ctr3 := CTR3 + 1;
                     end if;
                 else
-                    CTR3 <= CTR3 + 1;
+                    next_ctr3 := CTR3 + 1;
                 end if;
+            else
+                next_ctr3 := (others => '0');
             end if;
+
+            CTR3 <= next_ctr3;
+            CTR4 <= next_ctr4;
+            ctr3_end := next_ctr3 = "111";
+            ctr4_end := next_ctr4 = "1111";
 
             --<< setting fsm input >>--
 
@@ -112,7 +126,7 @@ begin
             CO4 <= bool_to_log(ctr4_end);
 
             -- setting DOUT
-            if RD = '1' and DELAY = '1' then
+            if RD = '1' and ctr4_end and DIN = '1' then
                 DOUT(to_integer(CTR3)) <= '1';
             end if;
 

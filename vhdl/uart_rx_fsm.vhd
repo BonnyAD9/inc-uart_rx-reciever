@@ -42,7 +42,7 @@ begin
             -- determine the next state
             case state is
                 when Idle =>
-                    if DAT = '1' then
+                    if DAT = '0' then
                         next_state := Offset;
                     end if;
                 when Offset =>

@@ -22,7 +22,7 @@ for src in uart_rx_fsm.vhd uart_rx.vhd testbench.vhd; do
         exit 1
     fi
 done
-echo 
+echo
 
 # Synthesize UART module
 echo "########## SYNTHESIS ##########"
