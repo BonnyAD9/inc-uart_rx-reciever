@@ -29,8 +29,11 @@ architecture behavioral of UART_RX_FSM is
     signal state : state_t := Idle;
 begin
     process (CLK, RST) is
-        variable next_state : state_t := state;
+        variable next_state : state_t;
     begin
+        -- set the default next_state
+        next_state := state;
+
         -- asynchronous reset
         if RST = '1' then
             state <= Idle;

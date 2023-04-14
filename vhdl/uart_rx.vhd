@@ -36,6 +36,14 @@ architecture behavioral of UART_RX is
     -- inputs to fsm
     signal CO3 : std_logic; -- set when CTR3 = "111"
     signal CO4 : std_logic; -- set when CTR4 = "1111"
+
+    function bool_to_log(bool : boolean) return std_logic is
+    begin
+        if bool then
+            return '1';
+        end if;
+        return '0';
+    end function;
 begin
 
     -- Instance of RX FSM
@@ -57,10 +65,14 @@ begin
 
     process (CLK, RST) is
         -- when CTR4 is at its last number
-        variable ctr4_end : boolean := CTR4 = "1111";
+        variable ctr4_end : boolean;
         -- when CTR3 is at its last number
-        variable ctr3_end : boolean := CTR3 = "111";
+        variable ctr3_end : boolean;
     begin
+        -- set the variables
+        ctr4_end := CTR4 = "1111";
+        ctr3_end := CTR3 = "111";
+
         -- asynchronous reset
         if RST = '1' then
             DOUT <= (others => '0');
@@ -95,17 +107,17 @@ begin
 
             --<< setting fsm input >>--
 
-            CO3 <= ctr3_end;
+            CO3 <= bool_to_log(ctr3_end);
 
-            CO4 <= ctr4_end;
+            CO4 <= bool_to_log(ctr4_end);
 
             -- setting DOUT
             if RD = '1' and DELAY = '1' then
-                DOUT(CTR3) <= '1';
+                DOUT(to_integer(CTR3)) <= '1';
             end if;
 
             -- updating delay
-            DELAY <= ctr4_end;
+            DELAY <= bool_to_log(ctr4_end);
         end if;
     end process;
 end architecture;
