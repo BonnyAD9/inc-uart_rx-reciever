@@ -80,11 +80,12 @@ begin
 
         -- asynchronous reset
         if RST = '1' then
-            DOUT <= (others => '0');
-            CTR4 <= (others => '0');
-            CTR3 <= (others => '0');
-            CO3  <= '0';
-            CO4  <= '0';
+            DOUT  <= (others => '0');
+            CTR4  <= (others => '0');
+            CTR3  <= (others => '0');
+            CO3   <= '0';
+            CO4   <= '0';
+            DELAY <= '0';
         elsif rising_edge(CLK) then
             --<< reacting on fsm output >>--
 

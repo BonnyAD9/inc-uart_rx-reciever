@@ -37,6 +37,11 @@ begin
         -- asynchronous reset
         if RST = '1' then
             state <= Idle;
+            RD  <= '0';
+            CC3 <= '0';
+            CC4 <= '0';
+            VLD <= '0';
+            CLR <= '1';
         elsif rising_edge(CLK) then
 
             -- determine the next state
