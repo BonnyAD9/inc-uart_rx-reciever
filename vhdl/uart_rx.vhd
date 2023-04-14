@@ -87,6 +87,9 @@ begin
             CO4   <= '0';
             DELAY <= '0';
         elsif rising_edge(CLK) then
+            next_ctr3 := CTR3;
+            next_ctr4 := CTR4;
+
             --<< reacting on fsm output >>--
 
             -- clear dout
@@ -97,8 +100,6 @@ begin
             -- increment CTR4
             if CC4 = '1' then
                 next_ctr4 := CTR4 + 1;
-            else
-                next_ctr4 := (others => '0');
             end if;
 
             -- increment CTR3
@@ -111,8 +112,6 @@ begin
                 else
                     next_ctr3 := CTR3 + 1;
                 end if;
-            else
-                next_ctr3 := (others => '0');
             end if;
 
             CTR3 <= next_ctr3;
