@@ -60,6 +60,9 @@
     <a name="circuit" val="main"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(1000,750)" name="Constant">
+      <a name="value" val="0x0"/>
+    </comp>
     <comp lib="0" loc="(1000,770)" name="Constant"/>
     <comp lib="0" loc="(1000,830)" name="Constant">
       <a name="value" val="0x0"/>
@@ -100,12 +103,14 @@
     <comp lib="0" loc="(650,860)" name="Clock"/>
     <comp lib="0" loc="(900,800)" name="Clock"/>
     <comp lib="0" loc="(950,580)" name="Clock"/>
+    <comp lib="0" loc="(980,530)" name="Constant">
+      <a name="value" val="0x0"/>
+    </comp>
     <comp lib="0" loc="(980,550)" name="Constant"/>
     <comp lib="0" loc="(980,610)" name="Constant">
       <a name="value" val="0x0"/>
       <a name="width" val="4"/>
     </comp>
-    <comp lib="1" loc="(1010,750)" name="NOT Gate"/>
     <comp lib="1" loc="(1160,470)" name="AND Gate">
       <a name="size" val="30"/>
     </comp>
@@ -115,7 +120,6 @@
     <comp lib="1" loc="(1260,940)" name="OR Gate">
       <a name="size" val="30"/>
     </comp>
-    <comp lib="1" loc="(990,530)" name="NOT Gate"/>
     <comp lib="2" loc="(1180,430)" name="Demultiplexer">
       <a name="enable" val="true"/>
       <a name="select" val="3"/>
@@ -169,25 +173,26 @@
       <a name="max" val="0xf"/>
       <a name="width" val="4"/>
     </comp>
-    <comp lib="8" loc="(1085,711)" name="Text">
+    <comp lib="8" loc="(1085,710)" name="Text">
       <a name="text" val="G5 in CTR is Enable"/>
     </comp>
-    <comp lib="8" loc="(1208,995)" name="Text">
+    <comp lib="8" loc="(1205,995)" name="Text">
       <a name="font" val="SansSerif bold 14"/>
       <a name="text" val="Allow only stable CLR"/>
     </comp>
-    <comp lib="8" loc="(734,794)" name="Text">
+    <comp lib="8" loc="(730,790)" name="Text">
       <a name="font" val="SansSerif bold 12"/>
       <a name="text" val="READ=1 chains CTR4 and CTR3 into CTR7"/>
     </comp>
     <comp lib="8" loc="(740,240)" name="Text">
       <a name="text" val="Synchronize the input"/>
     </comp>
-    <comp lib="8" loc="(780,849)" name="Text">
+    <comp lib="8" loc="(780,845)" name="Text">
       <a name="font" val="SansSerif bold 14"/>
       <a name="text" val="Delay by one cycle"/>
     </comp>
     <comp loc="(860,610)" name="FSM"/>
+    <wire from="(1000,750)" to="(1010,750)"/>
     <wire from="(1000,770)" to="(1010,770)"/>
     <wire from="(1000,830)" to="(1010,830)"/>
     <wire from="(1120,480)" to="(1120,490)"/>
@@ -351,14 +356,10 @@
     <wire from="(890,460)" to="(890,610)"/>
     <wire from="(890,610)" to="(920,610)"/>
     <wire from="(900,800)" to="(910,800)"/>
-    <wire from="(910,530)" to="(910,560)"/>
-    <wire from="(910,530)" to="(960,530)"/>
     <wire from="(910,560)" to="(910,650)"/>
     <wire from="(910,560)" to="(960,560)"/>
     <wire from="(920,610)" to="(920,790)"/>
-    <wire from="(940,630)" to="(940,750)"/>
-    <wire from="(940,750)" to="(940,790)"/>
-    <wire from="(940,750)" to="(980,750)"/>
+    <wire from="(940,630)" to="(940,790)"/>
     <wire from="(940,790)" to="(1010,790)"/>
     <wire from="(940,810)" to="(990,810)"/>
     <wire from="(950,580)" to="(990,580)"/>
@@ -367,6 +368,7 @@
     <wire from="(970,740)" to="(1010,740)"/>
     <wire from="(970,740)" to="(970,930)"/>
     <wire from="(970,930)" to="(1230,930)"/>
+    <wire from="(980,530)" to="(990,530)"/>
     <wire from="(980,550)" to="(990,550)"/>
     <wire from="(980,610)" to="(990,610)"/>
     <wire from="(990,800)" to="(1010,800)"/>
