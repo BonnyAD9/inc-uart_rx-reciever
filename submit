@@ -1,9 +1,0 @@
-#!/usr/bin/bash
-
-set -e -x
-
-# make the document
-(cd LaTeX && pdflatex zprava.tex)
-
-# zip the files
-zip -j xstigl00.zip LaTeX/zprava.pdf vhdl/uart_rx_fsm.vhd vhdl/uart_rx.vhd
