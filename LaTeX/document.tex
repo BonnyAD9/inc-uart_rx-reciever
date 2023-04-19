@@ -3,6 +3,7 @@
 % Language setting
 % Replace `english' with e.g. `spanish' to change the document language
 \usepackage[czech]{babel}
+\usepackage{pdflscape}
 
 % Set page size and margins
 % Replace `letterpaper' with `a4paper' for UK/EU standard size
@@ -76,8 +77,10 @@ WAIT2 a počká 8 cyklů hodin aby se dostal na konec ukončovacího bitu. Nakon
 se na jeden hodinový cyklus přesune do stavu VALID při kterém vyšle sygnál
 DOUT\_VLD který říká že na DOUT je validní výstup.
 
-
-%\bibliographystyle{alpha}
-%\bibliography{sample}
+\begin{landscape}
+    \pagenumbering{gobble}
+    \section{Simulace}
+    \includegraphics*[scale=0.5751]{assets/simulation.png}
+\end{landscape}
 
 \end{document}
