@@ -33,21 +33,21 @@
 
 \subsection{Popis funkce}
 
-Signál ze vstupu \emph{DIN} je synchronizován pomocí tří D-KO v transparentním
+Signál ze~vstupu \emph{DIN} je synchronizován pomocí tří D-KO v~transparentním
 režimu.
 
-Data jsou dále zavedena do demultiplexeru (DMX) který je rozvádí do
+Data jsou dále zavedena do demultiplexeru (DMX), který je rozvádí do
 jednotlivých T-KO které tvoří výstup \emph{DOUT}.
 
-Obvod využívá 2 počítadla (\emph{CTR3} a \emph{CTR4}) která praují na 3 a 4
-bitech. Když \emph{FSM} výstup \emph{RD} je 1 tak se počítadla zapojí za sebe a
-vytvoří jedno sedmibitové počítadlo. Výstup z \emph{CTR3} určuje který bit ve
-výstupu se má nastavovat. Přetečení z \emph{CTR4} do \emph{CTR3} je pomocí D-KO
-v transparentním režimu zpožděno aby se bity zapisovaly na ještě starou pozici
-určenou \emph{CTR3}.
+Obvod využívá 2 počítadla (\emph{CTR3} a \emph{CTR4}), která praují na~3~a~4
+bitech. Když FSM výstup \emph{RD} je 1, tak se~počítadla zapojí za~sebe,
+a~vytvoří jedno sedmibitové počítadlo. Výstup z~\emph{CTR3} určuje který bit
+ve~výstupu se~má nastavovat. Přetečení z~\emph{CTR4} do \emph{CTR3} je zpožděno
+pomocí D-KO v~transparentním režimu, aby se bity zapisovaly na ještě starou
+pozici určenou \emph{CTR3}.
 
-Výstupní D-KO můžou být resetovány pomocí signálu (\emph{CLR}) z FSM. Tento
-signál ale musí být synchronizovaný z hodinami protože reset na D-KO je
+Výstupní D-KO můžou být resetovány pomocí signálu (\emph{CLR}) z~FSM. Tento
+signál ale musí být synchronizovaný s~hodinami, protože reset na D-KO je
 asynchronní.
 
 \newpage
@@ -73,15 +73,15 @@ asynchronní.
 \includegraphics*[scale=0.9]{assets/FSM.pdf}
 
 \subsection{Funkce}
-Automat začíná ve stavu \emph{Idle} a čeká dokud se na vstupu \emph{DIN}
-neoběví 0. Poté se přesune do stavu \emph{Offset} kde počká 8 cyklů hodin
-(přesun do prostřed bitu). Dále se automat dostane do stavu \emph{Rds} kde vždy
-počká 16 cyklů hodin a přečte jeden bit. Když takto přečte 8 bitů přesune se do
-stavu \emph{Wait1} kde čeká dalších 16 cyklů hodin aby se dostal doprostřed
-ukončovacího bitu. Pak se přesune do stavu \emph{Wait2} a počká 8 cyklů hodin
-aby se dostal na konec ukončovacího bitu. Nakonec se na jeden hodinový cyklus
-přesune do stavu \emph{Valid} při kterém vyšle sygnál \emph{DOUT\_VLD} který
-říká že na \emph{DOUT} je validní výstup.
+Automat začíná ve~stavu \emph{Idle} a~čeká dokud se~na~vstupu \emph{DIN}
+neoběví 0. Poté se~přesune do stavu \emph{Offset} kde počká 8 cyklů hodin
+(přesun do prostřed bitu). Dále se~automat dostane do stavu \emph{Rds} kde vždy
+počká 16 cyklů hodin a~přečte jeden bit. Když takto přečte 8 bitů přesune se~do
+stavu \emph{Wait1}, kde čeká dalších 16 cyklů hodin, aby se~dostal doprostřed
+ukončovacího bitu. Pak se~přesune do stavu \emph{Wait2} a~počká 8 cyklů hodin,
+aby se~dostal na konec ukončovacího bitu. Nakonec se~na~jeden hodinový cyklus
+přesune do stavu \emph{Valid}, při kterém vyšle sygnál \emph{DOUT\_VLD}, který
+říká, že na~\emph{DOUT} je validní výstup.
 
 \begin{landscape}
     \pagenumbering{gobble}
