@@ -33,19 +33,22 @@
 
 \subsection{Popis funkce}
 
-Signál ze vstupu DIN je synchronizován pomocí tří D-KO v transparentním režimu.
+Signál ze vstupu \emph{DIN} je synchronizován pomocí tří D-KO v transparentním
+režimu.
 
 Data jsou dále zavedena do demultiplexeru (DMX) který je rozvádí do
-jednotlivých T-KO které tvoří výstup DOUT.
+jednotlivých T-KO které tvoří výstup \emph{DOUT}.
 
-Obvod využívá 2 počítadla (CTR3 a CTR4) která praují na 3 a 4 bitech.
-Když FSM výstup RD je 1 tak se počítadla zapojí za sebe a vytvoří jedno
-sedmibitové počítadlo. Výstup z CTR3 určuje který bit ve výstupu se má
-nastavovat. Přetečení z CTR4 do CTR3 je pomocí D-KO v transparentním režimu
-zpožděno aby se bity zapisovaly na ještě starou pozici určenou CTR3.
+Obvod využívá 2 počítadla (\emph{CTR3} a \emph{CTR4}) která praují na 3 a 4
+bitech. Když \emph{FSM} výstup \emph{RD} je 1 tak se počítadla zapojí za sebe a
+vytvoří jedno sedmibitové počítadlo. Výstup z \emph{CTR3} určuje který bit ve
+výstupu se má nastavovat. Přetečení z \emph{CTR4} do \emph{CTR3} je pomocí D-KO
+v transparentním režimu zpožděno aby se bity zapisovaly na ještě starou pozici
+určenou \emph{CTR3}.
 
-Výstupní D-KO můžou být resetovány pomocí signálu (CLR) z FSM. Tento sygnál ale
-musí být synchronizovaný z hodinami protože reset na D-KO je asynchronní.
+Výstupní D-KO můžou být resetovány pomocí signálu (\emph{CLR}) z FSM. Tento
+signál ale musí být synchronizovaný z hodinami protože reset na D-KO je
+asynchronní.
 
 \newpage
 
@@ -56,10 +59,12 @@ musí být synchronizovaný z hodinami protože reset na D-KO je asynchronní.
 \subsubsection{Legenda}
 
 \begin{itemize}
-    \item Stavy: Idle, Offset, Rds, Wait1, Wait2, Valid
-    \item Vstupní signály: DAT, CNT3, CNT4, CLK, RST
-    \item Moorovy výstupy (a jejich implicitní hodnoty): RD=0, CC3=0, CC4=0,
-          VLD=0, CLR=1
+    \item Stavy: \emph{Idle}, \emph{Offset}, \emph{Rds}, \emph{Wait1},
+          \emph{Wait2}, \emph{Valid}
+    \item Vstupní signály: \emph{DAT}, \emph{CNT3}, \emph{CNT4}, \emph{CLK},
+          \emph{RST}
+    \item Moorovy výstupy (a jejich implicitní hodnoty): \emph{RD}=0,
+          \emph{CC3}=0, \emph{CC4}=0, \emph{VLD}=0, \emph{CLR}=1
     \item Mealyho výstupy: žádné
 \end{itemize}
 
@@ -68,14 +73,15 @@ musí být synchronizovaný z hodinami protože reset na D-KO je asynchronní.
 \includegraphics*[scale=0.9]{assets/FSM.pdf}
 
 \subsection{Funkce}
-Automat začíná ve stavu Idle a čeká dokud se na vstupu DIN neoběví 0. Poté se
-přesune do stavu Offset kde počká 8 cyklů hodin (přesun do prostřed bitu). Dále
-se automat dostane do stavu Rds kde vždy počká 16 cyklů hodin a přečte jeden
-bit. Když takto přečte 8 bitů přesune se do stavu Wait1 kde čeká dalších 16
-cyklů hodin aby se dostal doprostřed ukončovacího bitu. Pak se přesune do stavu
-Wait2 a počká 8 cyklů hodin aby se dostal na konec ukončovacího bitu. Nakonec
-se na jeden hodinový cyklus přesune do stavu Valid při kterém vyšle sygnál
-DOUT\_VLD který říká že na DOUT je validní výstup.
+Automat začíná ve stavu \emph{Idle} a čeká dokud se na vstupu \emph{DIN}
+neoběví 0. Poté se přesune do stavu \emph{Offset} kde počká 8 cyklů hodin
+(přesun do prostřed bitu). Dále se automat dostane do stavu \emph{Rds} kde vždy
+počká 16 cyklů hodin a přečte jeden bit. Když takto přečte 8 bitů přesune se do
+stavu \emph{Wait1} kde čeká dalších 16 cyklů hodin aby se dostal doprostřed
+ukončovacího bitu. Pak se přesune do stavu \emph{Wait2} a počká 8 cyklů hodin
+aby se dostal na konec ukončovacího bitu. Nakonec se na jeden hodinový cyklus
+přesune do stavu \emph{Valid} při kterém vyšle sygnál \emph{DOUT\_VLD} který
+říká že na \emph{DOUT} je validní výstup.
 
 \begin{landscape}
     \pagenumbering{gobble}
