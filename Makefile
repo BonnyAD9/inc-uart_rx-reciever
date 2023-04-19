@@ -23,4 +23,4 @@ LaTeX/zprava.pdf: LaTeX/zprava.tex
 clean:
 	-rm vhdl/*.o vhdl/testbench vhdl/*.ghw vhdl/*.cf \
 		LaTeX/*.aux LaTeX/*.log LaTeX/*.out LaTeX/zprava.pdf \
-		xstigl00.zip
+		$(SUBNAME).zip
