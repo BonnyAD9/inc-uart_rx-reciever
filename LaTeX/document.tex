@@ -39,7 +39,7 @@ Data jsou dále zavedena do demultiplexeru (DMX) který je rozvádí do
 jednotlivých T-KO které tvoří výstup DOUT.
 
 Obvod využívá 2 počítadla (CTR3 a CTR4) která praují na 3 a 4 bitech.
-Když FSM výstup READ je 1 tak se počítadla zapojí za sebe a vytvoří jedno
+Když FSM výstup RD je 1 tak se počítadla zapojí za sebe a vytvoří jedno
 sedmibitové počítadlo. Výstup z CTR3 určuje který bit ve výstupu se má
 nastavovat. Přetečení z CTR4 do CTR3 je pomocí D-KO v transparentním režimu
 zpožděno aby se bity zapisovaly na ještě starou pozici určenou CTR3.
@@ -56,9 +56,9 @@ musí být synchronizovaný z hodinami protože reset na D-KO je asynchronní.
 \subsubsection{Legenda}
 
 \begin{itemize}
-    \item Stavy: IDLE, OFFSET, READ, WAIT1, WAIT2, VALID
+    \item Stavy: Idle, Offset, Rds, Wait1, Wait2, Valid
     \item Vstupní signály: DAT, CNT3, CNT4, CLK, RST
-    \item Moorovy výstupy (a jejich implicitní hodnoty): READ=0, CC3=0, CC4=0,
+    \item Moorovy výstupy (a jejich implicitní hodnoty): RD=0, CC3=0, CC4=0,
           VLD=0, CLR=1
     \item Mealyho výstupy: žádné
 \end{itemize}
@@ -68,13 +68,13 @@ musí být synchronizovaný z hodinami protože reset na D-KO je asynchronní.
 \includegraphics*[scale=0.9]{assets/FSM.pdf}
 
 \subsection{Funkce}
-Automat začíná ve stavu IDLE a čeká dokud se na vstupu DIN neoběví 0. Poté se
-přesune do stavu OFFSET kde počká 8 cyklů hodin (přesun do prostřed bitu). Dále
-se automat dostane do stavu READ kde vždy počká 16 cyklů hodin a přečte jeden
-bit. Když takto přečte 8 bitů přesune se do stavu WAIT1 kde čeká dalších 16
+Automat začíná ve stavu Idle a čeká dokud se na vstupu DIN neoběví 0. Poté se
+přesune do stavu Offset kde počká 8 cyklů hodin (přesun do prostřed bitu). Dále
+se automat dostane do stavu Rds kde vždy počká 16 cyklů hodin a přečte jeden
+bit. Když takto přečte 8 bitů přesune se do stavu Wait1 kde čeká dalších 16
 cyklů hodin aby se dostal doprostřed ukončovacího bitu. Pak se přesune do stavu
-WAIT2 a počká 8 cyklů hodin aby se dostal na konec ukončovacího bitu. Nakonec
-se na jeden hodinový cyklus přesune do stavu VALID při kterém vyšle sygnál
+Wait2 a počká 8 cyklů hodin aby se dostal na konec ukončovacího bitu. Nakonec
+se na jeden hodinový cyklus přesune do stavu Valid při kterém vyšle sygnál
 DOUT\_VLD který říká že na DOUT je validní výstup.
 
 \begin{landscape}

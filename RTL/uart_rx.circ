@@ -182,7 +182,7 @@
     </comp>
     <comp lib="8" loc="(730,790)" name="Text">
       <a name="font" val="SansSerif bold 12"/>
-      <a name="text" val="READ=1 chains CTR4 and CTR3 into CTR7"/>
+      <a name="text" val="RD=1 chains CTR4 and CTR3 into CTR7"/>
     </comp>
     <comp lib="8" loc="(740,240)" name="Text">
       <a name="text" val="Synchronize the input"/>
@@ -398,7 +398,7 @@
     <comp lib="0" loc="(1470,570)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
-      <a name="label" val="READ"/>
+      <a name="label" val="RD"/>
       <a name="output" val="true"/>
     </comp>
     <comp lib="0" loc="(1470,620)" name="Pin">
