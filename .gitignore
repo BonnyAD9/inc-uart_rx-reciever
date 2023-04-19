@@ -4,7 +4,7 @@
 *.fls
 *.log
 *.out
-document.pdf
+zprava.pdf
 *.gz
 *.zip
 *.o
