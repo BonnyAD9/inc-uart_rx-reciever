@@ -78,15 +78,15 @@ neoběví 0. Poté se~přesune do stavu \emph{Offset} kde počká 8 cyklů hodin
 (přesun do prostřed bitu). Dále se~automat dostane do stavu \emph{Rds} kde vždy
 počká 16 cyklů hodin a~přečte jeden bit. Když takto přečte 8 bitů přesune se~do
 stavu \emph{Wait1}, kde čeká dalších 16 cyklů hodin, aby se~dostal doprostřed
-ukončovacího bitu. Pak se~přesune do stavu \emph{Wait2} a~počká 8 cyklů hodin,
-aby se~dostal na konec ukončovacího bitu. Nakonec se~na~jeden hodinový cyklus
-přesune do stavu \emph{Valid}, při kterém vyšle sygnál \emph{DOUT\_VLD}, který
-říká, že na~\emph{DOUT} je validní výstup.
+ukončovacího bitu. Pak se~přesune na jeden cyklus do stavu \emph{Valid} a~začne
+počítat 8 cyklů hodin. Počítání se~dokončí ve~stavu \emph{Wait2}, který jen
+poočká na~konec stop bitu.
 
 \begin{landscape}
     \pagenumbering{gobble}
     \section{Simulace}
-    \includegraphics*[scale=0.5751]{assets/simulation.png}
+    %\includegraphics*[scale=0.5751]{assets/simulation.png}
+    \includegraphics*[scale=0.58]{assets/simulation.png}
 \end{landscape}
 
 \end{document}

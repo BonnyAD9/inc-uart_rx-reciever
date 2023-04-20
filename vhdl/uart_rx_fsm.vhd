@@ -60,14 +60,14 @@ begin
                     end if;
                 when Wait1 =>
                     if CNT4 = '1' then
-                        next_state := Wait2;
-                    end if;
-                when Wait2 =>
-                    if CNT3 = '1' then
                         next_state := Valid;
                     end if;
                 when Valid =>
-                    next_state := Idle;
+                    next_state := Wait2;
+                when Wait2 =>
+                    if CNT3 = '1' then
+                        next_state := Idle;
+                    end if;
             end case;
 
             state <= next_state;
@@ -92,12 +92,12 @@ begin
                 when Wait1 =>
                     CC4 <= '1';
                     CLR <= '0';
-                when Wait2 =>
+                when Valid =>
                     CC3 <= '1';
                     CLR <= '0';
-                when Valid =>
                     VLD <= '1';
-                    CLR <= '0';
+                when Wait2 =>
+                    CC3 <= '1';
             end case;
         end if;
     end process;

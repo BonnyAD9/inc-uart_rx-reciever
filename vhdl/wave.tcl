@@ -1,4 +1,4 @@
-# wave.tcl: TCL script for GTKWave simulator with signal definitions 
+# wave.tcl: TCL script for GTKWave simulator with signal definitions
 # Author(s): Lukas Kekely (ikekely@fit.vutbr.cz)
 
 gtkwave::/Edit/Insert_Comment "Main Interface"
